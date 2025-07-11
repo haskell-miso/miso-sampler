@@ -20,4 +20,10 @@ $ nix develop
 $ nix develop .#wasm --command bash -c "make"
 ```
 
+### Clean
+
+```bash
+$ nix develop .#wasm --command bash -c "make clean"
+```
+
 This comes with a GitHub action that builds and auto hosts the example.
