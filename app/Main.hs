@@ -1,15 +1,18 @@
 -----------------------------------------------------------------------------
 {-# LANGUAGE CPP               #-}
+{-# LANGUAGE LambdaCase        #-}
 {-# LANGUAGE OverloadedStrings #-}
 -----------------------------------------------------------------------------
 module Main where
 -----------------------------------------------------------------------------
-import           Prelude hiding (unlines, rem)
------------------------------------------------------------------------------
-import           Miso hiding (media_)
+import           Miso
+import           Miso.Html.Element as H
+import           Miso.Html.Event as E
+import           Miso.Html.Property as P
 import           Miso.Lens
 import           Miso.String
-import           Miso.Style hiding (ms)
+import qualified Miso.CSS as CSS
+import           Miso.CSS (StyleSheet)
 -----------------------------------------------------------------------------
 newtype Model = Model { _value :: Int }
   deriving (Show, Eq)
@@ -31,7 +34,7 @@ foreign export javascript "hs_start" main :: IO ()
 #endif
 -----------------------------------------------------------------------------
 main :: IO ()
-main = run (startApp app)
+main = run $ startApp app
 -----------------------------------------------------------------------------
 app :: App Model Action
 app = (component (Model 0) updateModel viewModel)
@@ -40,46 +43,47 @@ app = (component (Model 0) updateModel viewModel)
   }
 -----------------------------------------------------------------------------
 updateModel :: Action -> Transition Model Action
-updateModel (AddOne event) = do
-  value += 1
-  io_ $ consoleLog (ms (show event))
-updateModel (SubtractOne event) = do
-  value -= 1
-  io_ $ consoleLog (ms (show event))
-updateModel SayHelloWorld =
-  io_ (consoleLog "Hello World!")
+updateModel = \case
+  AddOne event -> do
+    value += 1
+    io_ $ consoleLog (ms (show event))
+  SubtractOne event -> do
+    value -= 1
+    io_ $ consoleLog (ms (show event))
+  SayHelloWorld ->
+    io_ (consoleLog "Hello World!")
 -----------------------------------------------------------------------------
 viewModel :: Model -> View Model Action
-viewModel x = div_
-  [ class_ "counter-container" ]
-  [ h1_
-    [ class_ "counter-title"
+viewModel x = H.div_
+  [ P.class_ "counter-container" ]
+  [ H.h1_
+    [ P.class_ "counter-title"
     ]
-    [ "🍜 Miso sampler !"
+    [ "🍜 Miso counter"
     ]
-  , div_
-    [ class_ "counter-display"
+  , H.div_
+    [ P.class_ "counter-display"
     ]
     [ text (ms x)
     ]
-  , div_
-    [ class_ "buttons-container"
+  , H.div_
+    [ P.class_ "buttons-container"
     ]
-    [ button_
-      [ onPointerDown AddOne
-      , class_ "decrement-btn"
+    [ H.button_
+      [ E.onPointerDown AddOne
+      , P.class_ "decrement-btn"
       ] [text "+"]
-    , button_
-      [ onPointerDown SubtractOne
-      , class_ "increment-btn"
+    , H.button_
+      [ E.onPointerDown SubtractOne
+      , P.class_ "increment-btn"
       ] [text "-"]
     ]
   ]
 -----------------------------------------------------------------------------
 sheet :: StyleSheet
 sheet =
-  sheet_
-  [ selector_ ":root"
+  CSS.sheet_
+  [ CSS.selector_ ":root"
     [ "--primary-color" =: "#4a6bff"
     , "--primary-hover" =: "#3451d1"
     , "--secondary-color" =: "#ff4a6b"
@@ -89,87 +93,87 @@ sheet =
     , "--shadow" =: "0 4px 10px rgba(0, 0, 0, 0.1);"
     , "--transition" =: "all 0.3s ease;"
     ]
-  , selector_ "body"
-    [ fontFamily "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif"
-    , display "flex"
-    , justifyContent "center"
-    , alignItems "center"
-    , height "100vh"
-    , margin "0"
-    , backgroundColor (var "background")
-    , color (var "text-color")
+  , CSS.selector_ "body"
+    [ CSS.fontFamily "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif"
+    , CSS.display "flex"
+    , CSS.justifyContent "center"
+    , CSS.alignItems "center"
+    , CSS.height "100vh"
+    , CSS.margin "0"
+    , CSS.backgroundColor (CSS.var "background")
+    , CSS.color (CSS.var "text-color")
     ]
-  , selector_ ".counter-container"
-    [ backgroundColor white
-    , padding (rem 2)
-    , borderRadius (px 12)
-    , boxShadow "shadow"
-    , textAlign "center"
+  , CSS.selector_ ".counter-container"
+    [ CSS.backgroundColor CSS.white
+    , CSS.padding (CSS.rem 2)
+    , CSS.borderRadius (CSS.px 12)
+    , CSS.boxShadow "shadow"
+    , CSS.textAlign "center"
     ]
-  , selector_ ".counter-display"
-    [ fontSize "5rem"
-    , fontWeight "bold"
-    , margin "1rem 0"
-    , transition "var(--transition)"
+  , CSS.selector_ ".counter-display"
+    [ CSS.fontSize "5rem"
+    , CSS.fontWeight "bold"
+    , CSS.margin "1CSS.rem 0"
+    , CSS.transition "var(--transition)"
     ]
-  , selector_ ".buttons-container"
-    [ display "flex"
-    , gap "1rem"
-    , justifyContent "center"
-    , marginTop "1.5rem"
+  , CSS.selector_ ".buttons-container"
+    [ CSS.display "flex"
+    , CSS.gap "1rem"
+    , CSS.justifyContent "center"
+    , CSS.marginTop "1.5rem"
     ]
-  , selector_ "button"
-    [ fontSize "1.5rem"
-    , width "3rem"
-    , height "3rem"
-    , border "none"
-    , borderRadius "50%"
-    , cursor "pointer"
-    , transition "var(--transition)"
-    , color white
-    , display "flex"
-    , alignItems "center"
-    , justifyContent "center"
+  , CSS.selector_ "button"
+    [ CSS.fontSize "1.5rem"
+    , CSS.width "3rem"
+    , CSS.height "3rem"
+    , CSS.border "none"
+    , CSS.borderRadius "50%"
+    , CSS.cursor "pointer"
+    , CSS.transition "var(--transition)"
+    , CSS.color CSS.white
+    , CSS.display "flex"
+    , CSS.alignItems "center"
+    , CSS.justifyContent "center"
     ]
-  , selector_ ".increment-btn"
-    [ backgroundColor (var "primary-color")
+  , CSS.selector_ ".increment-btn"
+    [ CSS.backgroundColor (CSS.var "primary-color")
     ]
-  , selector_ ".increment-btn:hover"
-    [ backgroundColor (var "primary-hover")
-    , transform "translateY(-2px)"
+  , CSS.selector_ ".increment-btn:hover"
+    [ CSS.backgroundColor (CSS.var "primary-hover")
+    , CSS.transform "translateY(-2px)"
     ]
-  , selector_ ".decrement-btn"
-    [ backgroundColor (var "secondary-color")
+  , CSS.selector_ ".decrement-btn"
+    [ CSS.backgroundColor (CSS.var "secondary-color")
     ]
-  , selector_ ".decrement-btn:hover"
-    [ backgroundColor (var "secondary-hover")
-    , transform "translateY(-2px)"
+  , CSS.selector_ ".decrement-btn:hover"
+    [ CSS.backgroundColor (CSS.var "secondary-hover")
+    , CSS.transform "translateY(-2px)"
     ]
-  , keyframes_ "pulse"
-    [ pct 0 =:
-      [ transform "scale(1)"
+  , CSS.keyframes_ "pulse"
+    [ CSS.pct 0 =:
+      [ CSS.transform "scale(1)"
       ]
-    , pct 50 =:
-      [ transform "scale(1.1)"
+    , CSS.pct 50 =:
+      [ CSS.transform "scale(1.1)"
       ]
-    , pct 100 =:
-      [ transform "scale(1)"
+    , CSS.pct 100 =:
+      [ CSS.transform "scale(1)"
       ]
     ]
-  , selector_ ".counter-display.animate"
-    [ animation "pulse 0.3s ease"
+  , CSS.selector_ ".counter-display.animate"
+    [ CSS.animation "pulse 0.3s ease"
     ]
-  , media_ "(max-width: 480px)"
+  , CSS.media_ "(max-width: 480px)"
     [ ".counter-container" =:
-      [ padding (rem 1.5)
+      [ CSS.padding (CSS.rem 1.5)
       ]
     , ".counter-display" =:
-      [ fontSize (rem 3)
+      [ CSS.fontSize (CSS.rem 3)
       ]
     , "button" =:
-      [ fontSize (rem 1.2)
-      , width (rem 2.5)
-      , width (rem 2.5)
+      [ CSS.fontSize (CSS.rem 1.2)
+      , CSS.width (CSS.rem 2.5)
+      , CSS.width (CSS.rem 2.5)
       ]
     ]
   ]

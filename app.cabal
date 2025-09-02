@@ -28,8 +28,7 @@ executable app
     wasm, warnings
   main-is:
     Main.hs
-  build-depends:
-    base < 5, miso
+  build-depends: base < 5, containers >= 0.7, miso
   hs-source-dirs:
     app
   default-language:
