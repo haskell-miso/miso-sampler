@@ -20,13 +20,14 @@ Once in the shell, you can call `cabal run` to start the development server and 
 ### Build (Web Assembly)
 
 ```bash
-$ nix develop .#wasm --command bash -c "make" --experimental-features 'nix-command flakes'
+$ nix develop .#wasm --command bash -c "make"
 ```
 
 ### Build (JavaScript)
 
 ```bash
-$ nix develop .#ghcjs --command bash -c "build" --experimental-features 'nix-command flakes'
+$ nix develop .#ghcjs
+$ build app
 ```
 
 ### Serve
@@ -34,13 +35,13 @@ $ nix develop .#ghcjs --command bash -c "build" --experimental-features 'nix-com
 To host the built application you can call `serve`
 
 ```bash
-$ nix develop .#wasm --command bash -c "serve" --experimental-features 'nix-command flakes'
+$ nix develop .#wasm --command bash -c "serve"
 ```
 
 ### Clean
 
 ```bash
-$ nix develop .#wasm --command bash -c "make clean"
+$ nix develop --command bash -c "make clean"
 ```
 
 This comes with a GitHub action that builds and auto hosts the example.
