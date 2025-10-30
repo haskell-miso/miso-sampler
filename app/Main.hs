@@ -59,7 +59,7 @@ viewModel x = H.div_
   [ H.h1_
     [ P.class_ "counter-title"
     ]
-    [ "🍜 Miso counter"
+    [ "🍜 Miso sampler"
     ]
   , H.div_
     [ P.class_ "counter-display"
