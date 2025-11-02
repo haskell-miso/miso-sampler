@@ -1,7 +1,7 @@
 🍱 miso-sampler 
 ====================
 
-A simple example of using [miso](https://github.com/dmjio/miso) w/ nix integration. This project contains a sample miso application with scripts to develop against vanilla GHC and to compile to Web Assembly.
+This project contains a sample [miso](https://github.com/dmjio/miso) application with scripts to develop against vanilla GHC and to compile to Web Assembly or JavaScript.
 
 ```haskell
 -----------------------------------------------------------------------------
