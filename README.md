@@ -3,6 +3,28 @@
 
 A simple example of using [miso](https://github.com/dmjio/miso) w/ nix integration. This project contains a sample miso application with scripts to develop against vanilla GHC and to compile to Web Assembly.
 
+```haskell
+-----------------------------------------------------------------------------
+main :: IO ()
+main = run (startApp app)
+-----------------------------------------------------------------------------
+app :: App Model Action
+app = (component (Model 0) updateModel viewModel)
+  { events = pointerEvents
+  , styles = [ Sheet sheet ]
+  }
+-----------------------------------------------------------------------------
+updateModel :: Action -> Transition Model Action
+updateModel = \case
+  AddOne -> do
+    value += 1
+  SubtractOne ->
+    value -= 1
+  SayHelloWorld ->
+    io_ (consoleLog "Hello World!")
+-----------------------------------------------------------------------------    
+```
+
 > [!TIP] 
 > This requires installing [nix](https://nixos.org) with [Nix Flakes](https://wiki.nixos.org/wiki/Flakes) enabled.
 > Although not required, we recommend using [miso's binary cache](https://github.com/dmjio/miso?tab=readme-ov-file#binary-cache).
