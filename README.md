@@ -5,8 +5,31 @@ This project contains a sample [miso](https://github.com/dmjio/miso) application
 
 ```haskell
 -----------------------------------------------------------------------------
+module Main where
+-----------------------------------------------------------------------------
+import           Miso
+import           Miso.Html.Element as H
+import           Miso.Html.Event as E
+import           Miso.Html.Property as P
+import           Miso.Lens
+import           Miso.String
+import qualified Miso.CSS as CSS
+import           Miso.CSS (StyleSheet)
+-----------------------------------------------------------------------------
+newtype Model = Model { _value :: Int }
+  deriving (Show, Eq)
+-----------------------------------------------------------------------------
+value :: Lens Model Int
+value = lens _value $ \m v -> m { _value = v }
+-----------------------------------------------------------------------------
+data Action
+  = AddOne PointerEvent
+  | SubtractOne PointerEvent
+  | SayHelloWorld
+  deriving (Show, Eq)
+-----------------------------------------------------------------------------
 main :: IO ()
-main = run (startApp app)
+main = run $ startApp app
 -----------------------------------------------------------------------------
 app :: App Model Action
 app = (component (Model 0) updateModel viewModel)
@@ -16,13 +39,39 @@ app = (component (Model 0) updateModel viewModel)
 -----------------------------------------------------------------------------
 updateModel :: Action -> Transition Model Action
 updateModel = \case
-  AddOne -> do
+  AddOne event ->
     value += 1
-  SubtractOne ->
+  SubtractOne event ->
     value -= 1
   SayHelloWorld ->
     io_ (consoleLog "Hello World!")
------------------------------------------------------------------------------    
+-----------------------------------------------------------------------------
+viewModel :: Model -> View Model Action
+viewModel x = H.div_
+  [ P.class_ "counter-container" ]
+  [ H.h1_
+    [ P.class_ "counter-title"
+    ]
+    [ "🍜 Miso sampler"
+    ]
+  , H.div_
+    [ P.class_ "counter-display"
+    ]
+    [ text (ms x)
+    ]
+  , H.div_
+    [ P.class_ "buttons-container"
+    ]
+    [ H.button_
+      [ E.onPointerDown AddOne
+      , P.class_ "decrement-btn"
+      ] [text "+"]
+    , H.button_
+      [ E.onPointerDown SubtractOne
+      , P.class_ "increment-btn"
+      ] [text "-"]
+    ]
+  ]   
 ```
 
 > [!TIP] 
