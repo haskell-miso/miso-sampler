@@ -16,19 +16,24 @@ common warnings
   ghc-options:
     -funbox-strict-fields -O2 -ferror-spans -fspecialise-aggressively -Wall
 
-common wasm
+common options
   if arch(wasm32)
     ghc-options:
       -no-hs-main -optl-mexec-model=reactor "-optl-Wl,--export=hs_start"
     cpp-options:
       -DWASM
 
+  if arch(javascript)
+     ld-options:
+       -sEXPORTED_RUNTIME_METHODS=HEAP8
+
 executable app
   import:
-    wasm, warnings
+    options, warnings
   main-is:
     Main.hs
-  build-depends: base < 5, containers >= 0.7, miso
+  build-depends: 
+    base < 5, containers >= 0.7, miso >= 1.9
   hs-source-dirs:
     app
   default-language:
