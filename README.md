@@ -106,7 +106,7 @@ $ build app
 To host the built application you can call `serve`
 
 ```bash
-$ nix develop .#wasm --command bash -c "serve"
+$ nix develop .#wasm --command bash -c "make serve"
 ```
 
 ### Clean
