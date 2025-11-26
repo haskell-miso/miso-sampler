@@ -97,8 +97,7 @@ $ nix develop .#wasm --command bash -c "make"
 ### Build (JavaScript)
 
 ```bash
-$ nix develop .#ghcjs
-$ build app
+$ nix develop .#ghcjs --command bash -c "make js"
 ```
 
 ### Serve
