@@ -114,4 +114,15 @@ $ nix develop .#wasm --command bash -c "make serve"
 $ nix develop --command bash -c "make clean"
 ```
 
+### CI
+
+Ensure that the Haskell miso [cachix](cachix.org) is being used when building your own projects in CI
+
+```yaml
+- name: Install cachix
+  uses: cachix/cachix-action@v16
+  with:
+    name: haskell-miso-cachix
+```
+
 This comes with a GitHub action that builds and auto hosts the example.
