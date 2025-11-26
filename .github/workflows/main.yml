@@ -21,6 +21,10 @@ jobs:
         with:
           github_access_token: ${{ secrets.GITHUB_TOKEN }}
 
+      - name: Install cachix
+        uses: cachix/cachix-action@v16
+        run: cachix use haskell-miso-cachix
+
       - name: Build WASM using Nix
         run: nix develop .#wasm --command bash -c "make"
 
