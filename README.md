@@ -18,25 +18,22 @@ import qualified Miso.CSS as CSS
 import           Miso.CSS (StyleSheet)
 -----------------------------------------------------------------------------
 data Action
-  = AddOne PointerEvent
-  | SubtractOne PointerEvent
+  = AddOne
+  | SubtractOne
   | SayHelloWorld
   deriving (Show, Eq)
 -----------------------------------------------------------------------------
 main :: IO ()
 main = run (startApp app)
 -----------------------------------------------------------------------------
-app :: App Model Action
-app = (component (Model 0) updateModel viewModel)
-  { events = pointerEvents
-  , styles = [ Sheet sheet ]
-  }
+app :: App Int Action
+app = component 0 updateModel viewModel
 -----------------------------------------------------------------------------
-updateModel :: Action -> Transition Model Action
+updateModel :: Action -> Transition Int Action
 updateModel = \case
-  AddOne _ ->
+  AddOne ->
     this += 1
-  SubtractOne _ ->
+  SubtractOne ->
     this -= 1
   SayHelloWorld ->
     io_ (consoleLog "Hello World!")
