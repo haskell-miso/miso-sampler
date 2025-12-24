@@ -36,7 +36,11 @@ foreign export javascript "hs_start" main :: IO ()
 #endif
 -----------------------------------------------------------------------------
 main :: IO ()
-main = run $ startApp app
+#ifdef INTERACTIVE
+main = reload (startApp app)
+#else
+main = run (startApp app)
+#endif
 -----------------------------------------------------------------------------
 app :: App Model Action
 app = (component (Model 0) updateModel viewModel)

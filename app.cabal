@@ -13,8 +13,10 @@ build-type:         Simple
 extra-doc-files:    CHANGELOG.md
 
 flag interactive
-  default: false
-  manual: true
+  default:
+    False
+  manual:
+    True
 
 common warnings
   ghc-options:
