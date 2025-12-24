@@ -7,6 +7,9 @@ js: update-js build-js
 update:
 	wasm32-wasi-cabal update
 
+repl:
+	wasm32-wasi-cabal repl app -finteractive --repl-options='-fghci-browser -fghci-browser-port=8080'
+
 build:
 	wasm32-wasi-cabal build 
 	rm -rf public

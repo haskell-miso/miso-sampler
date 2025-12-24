@@ -44,6 +44,29 @@ updateModel = \case
 > This requires installing [nix](https://nixos.org) with [Nix Flakes](https://wiki.nixos.org/wiki/Flakes) enabled.
 > Although not required, we recommend using [miso's binary cache](https://github.com/dmjio/miso?tab=readme-ov-file#binary-cache).
 
+### Browser mode
+
+For interactive development in the browser via the WASM backend
+
+```bash
+$ nix develop .#wasm --command -c 'make repl'
+```
+
+Paste the URL in your browser and the REPL will load
+
+```
+Preprocessing executable 'app' for app-0.1.0.0...
+GHCi, version 9.12.2.20250924: https://www.haskell.org/ghc/  :? for help
+Open http://127.0.0.1:8080/main.html or import http://127.0.0.1:8080/main.js to boot ghci
+```
+
+```
+Loaded GHCi configuration from /Users/dmjio/Desktop/miso-sampler/.ghci
+[1 of 2] Compiling Main             ( app/Main.hs, interpreted )
+Ok, one module loaded.
+>>> main
+```
+
 ### Development
 
 Call `nix develop` to enter a shell with [GHC 9.12.2](https://haskell.org/ghc)

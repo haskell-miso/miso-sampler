@@ -12,6 +12,10 @@ category:           Web
 build-type:         Simple
 extra-doc-files:    CHANGELOG.md
 
+flag interactive
+  default: false
+  manual: true
+
 common warnings
   ghc-options:
     -funbox-strict-fields -O2 -ferror-spans -fspecialise-aggressively -Wall
@@ -34,6 +38,9 @@ executable app
     Main.hs
   build-depends: 
     base < 5, containers >= 0.7, miso >= 1.9
+  if flag (interactive)
+    cpp-options:
+      -DINTERACTIVE
   hs-source-dirs:
     app
   default-language:
