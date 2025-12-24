@@ -67,6 +67,9 @@ Ok, one module loaded.
 >>> main
 ```
 
+<img width="724" height="607" alt="image" src="https://github.com/user-attachments/assets/b474c48d-3f89-4a97-9d9d-9db8217a02be" />
+
+
 ### Development
 
 Call `nix develop` to enter a shell with [GHC 9.12.2](https://haskell.org/ghc)
