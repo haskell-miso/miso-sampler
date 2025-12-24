@@ -69,7 +69,7 @@ Ok, one module loaded.
 
 <img width="724" height="607" alt="image" src="https://github.com/user-attachments/assets/b474c48d-3f89-4a97-9d9d-9db8217a02be" />
 
-Call `:r` to refresh the page with the latest code. Using `Miso.Run.reload` ensures the page is cleared between loads.
+Call `:r` to refresh the page with the latest code. Using `Miso.Run.reload` ensures the `<body>` and `<head>` are cleared between reloads.
 
 ### Development
 
