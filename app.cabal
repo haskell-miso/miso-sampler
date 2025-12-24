@@ -28,6 +28,9 @@ common options
       -no-hs-main -optl-mexec-model=reactor "-optl-Wl,--export=hs_start"
     cpp-options:
       -DWASM
+    if flag (interactive)
+      cpp-options:
+        -DINTERACTIVE
 
   if arch(javascript)
      ld-options:
@@ -40,9 +43,6 @@ executable app
     Main.hs
   build-depends: 
     base < 5, containers >= 0.7, miso >= 1.9
-  if flag (interactive)
-    cpp-options:
-      -DINTERACTIVE
   hs-source-dirs:
     app
   default-language:
