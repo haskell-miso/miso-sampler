@@ -36,8 +36,8 @@ updateModel = \case
   SayHelloWorld ->
     io_ (consoleLog "Hello World!")
 -----------------------------------------------------------------------------
-viewModel :: View Int Action
-viewModel = -- see app/Main.hs for more ...
+viewModel :: Int -> View Int Action
+viewModel m = -- see app/Main.hs for more ...
 ```
 
 > [!TIP] 
