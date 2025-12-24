@@ -21,13 +21,13 @@ data Action
 main :: IO ()
 main = run (startApp app)
 -----------------------------------------------------------------------------
-app :: App Int Action
+app :: Component parent Int Action
 app = component initialModel updateModel viewModel
   where
     initialModel :: Int
     initialModel = 0
 -----------------------------------------------------------------------------
-updateModel :: Action -> Transition Int Action
+updateModel :: Action -> Effect parent Int Action
 updateModel = \case
   AddOne ->
     this += 1
