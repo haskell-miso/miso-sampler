@@ -9,13 +9,8 @@ develop against vanilla GHC and to compile to Web Assembly or JavaScript.
 module Main where
 -----------------------------------------------------------------------------
 import           Miso
-import           Miso.Html.Element as H
-import           Miso.Html.Event as E
-import           Miso.Html.Property as P
 import           Miso.Lens
 import           Miso.String
-import qualified Miso.CSS as CSS
-import           Miso.CSS (StyleSheet)
 -----------------------------------------------------------------------------
 data Action
   = AddOne
@@ -27,7 +22,10 @@ main :: IO ()
 main = run (startApp app)
 -----------------------------------------------------------------------------
 app :: App Int Action
-app = component 0 updateModel viewModel
+app = component initialModel updateModel viewModel
+  where
+    initialModel :: Int
+    initialModel = 0
 -----------------------------------------------------------------------------
 updateModel :: Action -> Transition Int Action
 updateModel = \case
@@ -38,6 +36,8 @@ updateModel = \case
   SayHelloWorld ->
     io_ (consoleLog "Hello World!")
 -----------------------------------------------------------------------------
+viewModel :: View Int Action
+viewModel = -- see app/Main.hs for more ...
 ```
 
 > [!TIP] 
