@@ -49,7 +49,7 @@ viewModel m = -- see app/Main.hs for more ...
 For interactive development in the browser via the WASM backend
 
 ```bash
-$ nix develop .#wasm --command -c 'make repl'
+$ nix develop .#wasm --command bash -c 'make repl'
 ```
 ```
 Preprocessing executable 'app' for app-0.1.0.0...
@@ -58,7 +58,6 @@ Open http://127.0.0.1:8080/main.html or import http://127.0.0.1:8080/main.js to 
 ```
 
 Paste the URL in your browser and the REPL will load
-
 
 ```
 Loaded GHCi configuration from /Users/dmjio/Desktop/miso-sampler/.ghci
