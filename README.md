@@ -57,15 +57,23 @@ GHCi, version 9.12.2.20250924: https://www.haskell.org/ghc/  :? for help
 Open http://127.0.0.1:8080/main.html or import http://127.0.0.1:8080/main.js to boot ghci
 ```
 
-Paste the URL in your browser and the REPL will load
+Paste the URL in your browser. Doing so will cause assets to transfer; you can inspect the network tab, but do not refresh the page. The REPL will load in the terminal
 
 
 ```
 Loaded GHCi configuration from /Users/dmjio/Desktop/miso-sampler/.ghci
 [1 of 2] Compiling Main             ( app/Main.hs, interpreted )
 Ok, one module loaded.
->>> main
+ghci>
 ```
+
+Finally, to run the example app, run `main` in the `repl`:
+
+```
+ghci> main
+```
+
+and you will see
 
 <img width="724" height="607" alt="image" src="https://github.com/user-attachments/assets/b474c48d-3f89-4a97-9d9d-9db8217a02be" />
 
