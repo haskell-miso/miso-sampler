@@ -42,7 +42,7 @@ executable app
   main-is:
     Main.hs
   build-depends: 
-    base < 5, containers >= 0.7, miso >= 1.9
+    base < 5, miso >= 1.9
   hs-source-dirs:
     app
   default-language:
