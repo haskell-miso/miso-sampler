@@ -83,7 +83,7 @@ Call `:r` to refresh the page with the latest code. Using `Miso.Run.reload` ensu
 Call `nix develop` to enter a shell with [GHC 9.12.2](https://haskell.org/ghc)
 
 ```bash
-$ nix develop --experimental-features nix-command --extra-experimental-features flakes
+$ nix develop .#wasm --experimental-features nix-command --extra-experimental-features flakes
 ```
 
 Once in the shell, you can call `cabal run` to start the development server and view the application at http://localhost:8080
