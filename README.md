@@ -19,7 +19,7 @@ data Action
   deriving (Show, Eq)
 -----------------------------------------------------------------------------
 main :: IO ()
-main = run (startApp app)
+main = run (startApp defaultEvents app)
 -----------------------------------------------------------------------------
 app :: Component parent Int Action
 app = component initialModel updateModel viewModel

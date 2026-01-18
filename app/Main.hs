@@ -37,15 +37,14 @@ foreign export javascript "hs_start" main :: IO ()
 -----------------------------------------------------------------------------
 main :: IO ()
 #ifdef INTERACTIVE
-main = reload (startApp app)
+main = reload (startApp pointerEvents app)
 #else
-main = run (startApp app)
+main = run (startApp pointerEvents app)
 #endif
 -----------------------------------------------------------------------------
 app :: App Model Action
 app = (component (Model 0) updateModel viewModel)
-  { events = pointerEvents
-  , styles = [ Sheet sheet ]
+  { styles = [ Sheet sheet ]
   }
 -----------------------------------------------------------------------------
 updateModel :: Action -> Transition Model Action
