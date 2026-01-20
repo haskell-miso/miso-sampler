@@ -44,7 +44,7 @@ viewModel m = -- see app/Main.hs for more ...
 > This requires installing [nix](https://nixos.org) with [Nix Flakes](https://wiki.nixos.org/wiki/Flakes) enabled.
 > Although not required, we recommend using [miso's binary cache](https://github.com/dmjio/miso?tab=readme-ov-file#binary-cache).
 
-### Browser mode
+### Browser mode 🔥
 
 For interactive development in the browser via the WASM backend
 
