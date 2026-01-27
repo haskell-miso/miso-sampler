@@ -4,45 +4,17 @@
 This project contains a sample [miso](https://github.com/dmjio/miso) application with scripts to 
 develop against vanilla GHC and to compile to Web Assembly or JavaScript.
 
-```haskell
------------------------------------------------------------------------------
-module Main where
------------------------------------------------------------------------------
-import           Miso
-import           Miso.Lens
-import           Miso.String
------------------------------------------------------------------------------
-data Action
-  = AddOne
-  | SubtractOne
-  | SayHelloWorld
-  deriving (Show, Eq)
------------------------------------------------------------------------------
-main :: IO ()
-main = run (startApp defaultEvents app)
------------------------------------------------------------------------------
-app :: Component parent Int Action
-app = component initialModel updateModel viewModel
-  where
-    initialModel :: Int
-    initialModel = 0
------------------------------------------------------------------------------
-updateModel :: Action -> Effect parent Int Action
-updateModel = \case
-  AddOne ->
-    this += 1
-  SubtractOne ->
-    this -= 1
-  SayHelloWorld ->
-    io_ (consoleLog "Hello World!")
------------------------------------------------------------------------------
-viewModel :: Int -> View Int Action
-viewModel m = -- see app/Main.hs for more ...
+### Source
+
+View [source](https://github.com/haskell-miso/miso-sampler/blob/main/app/Main.hs).
+
+### Install Nix (w/ flakes enabled)
+```js
+curl -fsSL https://install.determinate.systems/nix | sh -s -- install 
 ```
 
 > [!TIP] 
-> This requires installing [nix](https://nixos.org) with [Nix Flakes](https://wiki.nixos.org/wiki/Flakes) enabled.
-> Although not required, we recommend using [miso's binary cache](https://github.com/dmjio/miso?tab=readme-ov-file#binary-cache).
+> Miso requires installing [nix](https://nixos.org) with [Nix Flakes](https://wiki.nixos.org/wiki/Flakes) enabled.
 
 ### Browser mode 🔥
 
