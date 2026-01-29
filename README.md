@@ -52,7 +52,7 @@ Call `:r` to refresh the page with the latest code. Using `Miso.Run.reload` ensu
 
 ### Hot reload 🔥
 
-If you use [ghciwatch](https://github.com/MercuryTechnologies/ghciwatch) you can get hot reload functionality (`main` is executed on every disk file change).
+If you use [ghciwatch](https://github.com/MercuryTechnologies/ghciwatch) you can have hot reload functionality (where `main` is executed whenever a file is saved to disk).
 
 ```bash
 $ nix develop .#wasm --command bash -c 'make watch'
