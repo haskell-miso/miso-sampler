@@ -50,6 +50,14 @@ and you will see
 
 Call `:r` to refresh the page with the latest code. Using `Miso.Run.reload` ensures the `<body>` and `<head>` are cleared between reloads.
 
+### Hot reload 🔥
+
+If you use [ghciwatch](https://github.com/MercuryTechnologies/ghciwatch) you can get hot reload functionality (`main` is executed on every disk file change).
+
+```bash
+$ nix develop .#wasm --command bash -c 'make watch'
+```
+
 ### Development
 
 Call `nix develop` to enter a shell with [GHC 9.12.2](https://haskell.org/ghc)
