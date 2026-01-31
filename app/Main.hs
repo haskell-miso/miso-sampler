@@ -39,7 +39,7 @@ main :: IO ()
 #ifdef INTERACTIVE
 main = reload (startApp pointerEvents app)
 #else
-main = run (startApp pointerEvents app)
+main = startApp pointerEvents app
 #endif
 -----------------------------------------------------------------------------
 app :: App Model Action
