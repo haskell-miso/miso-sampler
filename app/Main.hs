@@ -68,7 +68,7 @@ viewModel x = H.div_
       , P.class_ "decrement-btn"
       ] [text "+"]
     , H.button_
-      [ E.onCick SubtractOne
+      [ E.onClick SubtractOne
       , P.class_ "increment-btn"
       ] [text "-"]
     ]
