@@ -14,18 +14,9 @@ import           Miso.String
 import qualified Miso.CSS as CSS
 import           Miso.CSS (StyleSheet)
 -----------------------------------------------------------------------------
-newtype Model = Model { _value :: Int }
-  deriving (Show, Eq)
------------------------------------------------------------------------------
-instance ToMisoString Model where
-  toMisoString (Model v) = toMisoString v
------------------------------------------------------------------------------
-value :: Lens Model Int
-value = lens _value $ \m v -> m { _value = v }
------------------------------------------------------------------------------
 data Action
-  = AddOne PointerEvent
-  | SubtractOne PointerEvent
+  = AddOne
+  | SubtractOne
   | SayHelloWorld
   deriving (Show, Eq)
 -----------------------------------------------------------------------------
@@ -42,19 +33,17 @@ main = reload (startApp pointerEvents app)
 main = startApp pointerEvents app
 #endif
 -----------------------------------------------------------------------------
-app :: App Model Action
-app = (component (Model 0) updateModel viewModel)
+app :: App Int Action
+app = (component 0 updateModel viewModel)
   { styles = [ Sheet sheet ]
   }
 -----------------------------------------------------------------------------
 updateModel :: Action -> Transition Model Action
 updateModel = \case
-  AddOne event -> do
+  AddOne ->
     value += 1
-    io_ $ consoleLog (ms (show event))
-  SubtractOne event -> do
+  SubtractOne ->
     value -= 1
-    io_ $ consoleLog (ms (show event))
   SayHelloWorld ->
     io_ (consoleLog "Hello World!")
 -----------------------------------------------------------------------------
