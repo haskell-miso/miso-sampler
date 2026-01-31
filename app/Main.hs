@@ -38,16 +38,16 @@ app = (component 0 updateModel viewModel)
   { styles = [ Sheet sheet ]
   }
 -----------------------------------------------------------------------------
-updateModel :: Action -> Transition Model Action
+updateModel :: Action -> Transition Int Action
 updateModel = \case
   AddOne ->
-    value += 1
+    this += 1
   SubtractOne ->
-    value -= 1
+    this -= 1
   SayHelloWorld ->
     io_ (consoleLog "Hello World!")
 -----------------------------------------------------------------------------
-viewModel :: Model -> View Model Action
+viewModel :: Int -> View Int Action
 viewModel x = H.div_
   [ P.class_ "counter-container" ]
   [ H.h1_
