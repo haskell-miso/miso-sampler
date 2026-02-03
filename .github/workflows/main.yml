@@ -35,6 +35,15 @@ jobs:
       - name: Build JS using Nix
         run: nix develop .#ghcjs --command bash -c "make js"
 
+      - name: Install GHCup
+        uses: haskell/ghcup-setup@v1
+        with:
+          cabal: latest
+
+      - name: Build using GHC
+        run: |
+          make ghcup-build
+
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
