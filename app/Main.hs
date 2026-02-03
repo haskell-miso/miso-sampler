@@ -28,7 +28,7 @@ foreign export javascript "hs_start" main :: IO ()
 -----------------------------------------------------------------------------
 main :: IO ()
 #ifdef INTERACTIVE
-main = reload (startApp pointerEvents app)
+main = reload (startApp defaultEvents app)
 #else
 main = startApp pointerEvents app
 #endif
