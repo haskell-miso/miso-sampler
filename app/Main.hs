@@ -30,7 +30,7 @@ main :: IO ()
 #ifdef INTERACTIVE
 main = reload (startApp defaultEvents app)
 #else
-main = startApp pointerEvents app
+main = startApp defaultEvents app
 #endif
 -----------------------------------------------------------------------------
 app :: App Int Action
