@@ -15,8 +15,8 @@ import qualified Miso.CSS as CSS
 import           Miso.CSS (StyleSheet)
 -----------------------------------------------------------------------------
 data Action
-  = AddOne
-  | SubtractOne
+  = AddOne PointerEvent
+  | SubtractOne PointerEvent
   | SayHelloWorld
   deriving (Show, Eq)
 -----------------------------------------------------------------------------
@@ -40,9 +40,9 @@ app = (component 0 updateModel viewModel)
 -----------------------------------------------------------------------------
 updateModel :: Action -> Transition Int Action
 updateModel = \case
-  AddOne ->
+  AddOne _ ->
     this += 1
-  SubtractOne ->
+  SubtractOne _ ->
     this -= 1
   SayHelloWorld ->
     io_ (consoleLog "Hello World!")
@@ -64,11 +64,11 @@ viewModel x = H.div_
     [ P.class_ "buttons-container"
     ]
     [ H.button_
-      [ E.onClick AddOne
+      [ E.onPointerDown AddOne
       , P.class_ "decrement-btn"
       ] [text "+"]
     , H.button_
-      [ E.onClick SubtractOne
+      [ E.onPointerDown SubtractOne
       , P.class_ "increment-btn"
       ] [text "-"]
     ]
