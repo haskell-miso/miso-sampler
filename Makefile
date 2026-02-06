@@ -32,6 +32,12 @@ ghcup-build:
 	$(shell wasm32-wasi-ghc --print-libdir)/post-link.mjs --input $(my_wasm) --output public/ghc_wasm_jsffi.js
 	cp -v $(my_wasm) public/
 
+install-wasm-via-ghcup:
+	curl https://gitlab.haskell.org/haskell-wasm/ghc-wasm-meta/-/raw/master/bootstrap.sh | SKIP_GHC=1 sh
+	source ~/.ghc-wasm/env
+	ghcup config add-release-channel https://gitlab.haskell.org/haskell-wasm/ghc-wasm-meta/-/raw/master/ghcup-wasm-0.0.9.yaml
+	ghcup install ghc wasm32-wasi-9.14 -- $CONFIGURE_ARGS
+
 optim:
 	wasm-opt -all -O2 public/app.wasm -o public/app.wasm
 	wasm-tools strip -o public/app.wasm public/app.wasm

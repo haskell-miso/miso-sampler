@@ -38,12 +38,15 @@ jobs:
       - name: Install GHCup
         uses: haskell/ghcup-setup@v1
 
-      - name: Install GHC-wasm
+      - name: Install WASI backend via GHCup
         run: |
           curl https://gitlab.haskell.org/haskell-wasm/ghc-wasm-meta/-/raw/master/bootstrap.sh | SKIP_GHC=1 sh
           source ~/.ghc-wasm/env
           ghcup config add-release-channel https://gitlab.haskell.org/haskell-wasm/ghc-wasm-meta/-/raw/master/ghcup-wasm-0.0.9.yaml
           ghcup install ghc wasm32-wasi-9.14 -- $CONFIGURE_ARGS
+
+      - name: Build using GHC
+        run: make ghcup-build
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
