@@ -38,8 +38,12 @@ jobs:
       - name: Install GHCup
         uses: haskell/ghcup-setup@v1
 
-      - name: Build JS using GHCup
-        run: make ghcup-build
+      - name: Install GHC-wasm
+        run: |
+          curl https://gitlab.haskell.org/haskell-wasm/ghc-wasm-meta/-/raw/master/bootstrap.sh | SKIP_GHC=1 sh
+          source ~/.ghc-wasm/env
+          ghcup config add-release-channel https://gitlab.haskell.org/haskell-wasm/ghc-wasm-meta/-/raw/master/ghcup-wasm-0.0.9.yaml
+          ghcup install ghc wasm32-wasi-9.14 -- $CONFIGURE_ARGS
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
