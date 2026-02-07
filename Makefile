@@ -21,12 +21,29 @@ build:
 	$(shell wasm32-wasi-ghc --print-libdir)/post-link.mjs --input $(my_wasm) --output public/ghc_wasm_jsffi.js
 	cp -v $(my_wasm) public/
 
+ghcup-update:
+	cabal --allow-newer=base,template-haskell --with-compiler=wasm32-wasi-ghc-9.14 --with-hc-pkg=wasm32-wasi-ghc-pkg-9.14 --with-hsc2hs=wasm32-wasi-hsc2hs-9.14 --with-haddock=wasm32-wasi-haddock-9.14 update
+
+ghcup-build:
+	cabal clean
+	cabal update
+	cabal --allow-newer=base,template-haskell --with-compiler=wasm32-wasi-ghc-9.14 --with-hc-pkg=wasm32-wasi-ghc-pkg-9.14 --with-hsc2hs=wasm32-wasi-hsc2hs-9.14 --with-haddock=wasm32-wasi-haddock-9.14 build --verbose=3
+
+install-wasm-via-ghcup:
+	curl https://gitlab.haskell.org/haskell-wasm/ghc-wasm-meta/-/raw/master/bootstrap.sh | SKIP_GHC=1 sh
+	source ~/.ghc-wasm/env
+	ghcup config add-release-channel https://gitlab.haskell.org/haskell-wasm/ghc-wasm-meta/-/raw/master/ghcup-wasm-0.0.9.yaml
+	ghcup install ghc wasm32-wasi-9.14 -- $CONFIGURE_ARGS
+
 optim:
 	wasm-opt -all -O2 public/app.wasm -o public/app.wasm
 	wasm-tools strip -o public/app.wasm public/app.wasm
 
 serve:
 	http-server public
+
+ghcup-serve:
+	cd public; php -S localhost:1234
 
 clean:
 	rm -rf dist-newstyle public
