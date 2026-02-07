@@ -46,7 +46,13 @@ jobs:
           ghcup install ghc wasm32-wasi-9.14 -- $CONFIGURE_ARGS
 
       - name: Build using GHC
-        run: make ghcup-build
+        run: |
+          echo "xxx"
+          echo "$PATH"
+          echo "xxx"
+          ls -lah
+          echo "xxx"
+          ls wasm32-wasi-ghc
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
