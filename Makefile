@@ -26,11 +26,6 @@ ghcup-update:
 
 ghcup-build:
 	cabal --allow-newer=base,template-haskell --with-compiler=wasm32-wasi-ghc-9.14 --with-hc-pkg=wasm32-wasi-ghc-pkg-9.14 --with-hsc2hs=wasm32-wasi-hsc2hs-9.14 --with-haddock=wasm32-wasi-haddock-9.14 build 
-	rm -rf public
-	cp -r static public
-	$(eval my_wasm=$(shell cabal --allow-newer=base,template-haskell --with-compiler=wasm32-wasi-ghc-9.14 --with-hc-pkg=wasm32-wasi-ghc-pkg-9.14 --with-hsc2hs=wasm32-wasi-hsc2hs-9.14 --with-haddock=wasm32-wasi-haddock-9.14 list-bin app | tail -n 1))
-	$(shell wasm32-wasi-ghc --print-libdir)/post-link.mjs --input $(my_wasm) --output public/ghc_wasm_jsffi.js
-	cp -v $(my_wasm) public/
 
 install-wasm-via-ghcup:
 	curl https://gitlab.haskell.org/haskell-wasm/ghc-wasm-meta/-/raw/master/bootstrap.sh | SKIP_GHC=1 sh
