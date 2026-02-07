@@ -29,13 +29,9 @@ jobs:
 
       - name: Build using GHC
         run: |
-          echo xxx
-          echo $PATH | sed -z 's/:/\n/g'
-          echo xxx
-          ls -lah
-          echo xxx
-          which wasm32-wasi-ghc
-          echo "xxx"
+          echo ==============================================================
+          for dir in $(echo $PATH | sed 's/:/ /g'); do ls $dir; done
+          echo ==============================================================
 
   deploy:
     if: github.ref == 'refs/heads/main'
