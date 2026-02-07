@@ -17,23 +17,15 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - uses: cachix/install-nix-action@v31
-        with:
-          github_access_token: ${{ secrets.GITHUB_TOKEN }}
+      - name: Install GHCup
+        uses: haskell/ghcup-setup@v1
 
-      - name: Install cachix
-        uses: cachix/cachix-action@v16
-        with:
-          name: haskell-miso-cachix
-
-      - name: Build WASM using Nix
-        run: nix develop .#wasm --command bash -c "make"
-
-      - name: Clean and GC
-        run: nix develop .#wasm --command bash -c "make" && nix-collect-garbage -d
-
-      - name: Build JS using Nix
-        run: nix develop .#ghcjs --command bash -c "make js"
+      - name: Install WASI backend via GHCup
+        run: |
+          curl https://gitlab.haskell.org/haskell-wasm/ghc-wasm-meta/-/raw/master/bootstrap.sh | SKIP_GHC=1 sh
+          source ~/.ghc-wasm/env
+          ghcup config add-release-channel https://gitlab.haskell.org/haskell-wasm/ghc-wasm-meta/-/raw/master/ghcup-wasm-0.0.9.yaml
+          ghcup install ghc wasm32-wasi-9.14 -- $CONFIGURE_ARGS
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
