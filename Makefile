@@ -25,16 +25,7 @@ ghcup-update:
 	cabal --allow-newer=base,template-haskell --with-compiler=wasm32-wasi-ghc-9.14 --with-hc-pkg=wasm32-wasi-ghc-pkg-9.14 --with-hsc2hs=wasm32-wasi-hsc2hs-9.14 --with-haddock=wasm32-wasi-haddock-9.14 update
 
 ghcup-build:
-	echo ==============================
-	echo I wanted to run this:
-	echo ==============================
-	echo cabal --allow-newer=base,template-haskell --with-compiler=wasm32-wasi-ghc-9.14 --with-hc-pkg=wasm32-wasi-ghc-pkg-9.14 --with-hsc2hs=wasm32-wasi-hsc2hs-9.14 --with-haddock=wasm32-wasi-haddock-9.14 build 
-	echo ==============================
-	which wasm32-wasi-ghc-9.14 >/dev/null 2>&1 && echo yes || echo no
-	which wasm32-wasi-ghc-pkg-9.14 >/dev/null 2>&1 && echo yes || echo no
-	which wasm32-wasi-hsc2hs-9.14 >/dev/null 2>&1 && echo yes || echo no
-	which wasm32-wasi-haddock-9.14 >/dev/null 2>&1 && echo yes || echo no
-	echo ==============================
+	cabal build
 
 install-wasm-via-ghcup:
 	curl https://gitlab.haskell.org/haskell-wasm/ghc-wasm-meta/-/raw/master/bootstrap.sh | SKIP_GHC=1 sh
