@@ -20,16 +20,22 @@ jobs:
       - name: Install GHCup
         uses: haskell/ghcup-setup@v1
 
+      - name: Install WASI backend via GHCup
+        run: |
+          curl https://gitlab.haskell.org/haskell-wasm/ghc-wasm-meta/-/raw/master/bootstrap.sh | SKIP_GHC=1 sh
+          source ~/.ghc-wasm/env
+          ghcup config add-release-channel https://gitlab.haskell.org/haskell-wasm/ghc-wasm-meta/-/raw/master/ghcup-wasm-0.0.9.yaml
+          ghcup install ghc wasm32-wasi-9.14 -- $CONFIGURE_ARGS
+
       - name: Build using GHC
         run: |
           echo xxx
-          echo $PATH
+          echo $PATH | sed -z 's/:/\n/g'
           echo xxx
           ls -lah
           echo xxx
-          ls wasm32-wasi-ghc
+          which wasm32-wasi-ghc
           echo "xxx"
-          make ghcup-build
 
   deploy:
     if: github.ref == 'refs/heads/main'
