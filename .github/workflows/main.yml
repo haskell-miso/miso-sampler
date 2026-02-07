@@ -47,12 +47,9 @@ jobs:
 
       - name: Build using GHC
         run: |
-          echo "xxx"
-          echo "$PATH"
-          echo "xxx"
-          ls -lah
-          echo "xxx"
-          ls wasm32-wasi-ghc
+          echo xxx
+          echo xxx
+          echo xxx
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
