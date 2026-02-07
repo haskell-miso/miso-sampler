@@ -30,7 +30,7 @@ jobs:
       - name: Build using GHC
         run: |
           echo ==============================================================
-          for dir in $(echo $PATH | sed 's/:/ /g'); do ls $dir; done
+          for dir in $(echo $PATH | sed 's/:/ /g'); do [[ -d $dir ]] && ls $dir; done
           echo ==============================================================
 
   deploy:
