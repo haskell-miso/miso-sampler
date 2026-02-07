@@ -30,11 +30,6 @@ jobs:
       - name: Build using GHC
         run: make ghcup-build
 
-      - name: Upload artifact
-        uses: actions/upload-pages-artifact@v3
-        with:
-          path: ./public
-
   deploy:
     if: github.ref == 'refs/heads/main'
     runs-on: ubuntu-latest
