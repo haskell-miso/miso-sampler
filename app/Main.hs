@@ -38,7 +38,7 @@ app = (component 0 updateModel viewModel)
   { styles = [ Sheet sheet ]
   }
 -----------------------------------------------------------------------------
-updateModel :: Action -> Transition Int Action
+updateModel :: Action -> Effect parent Int Action
 updateModel = \case
   AddOne ->
     this += 1
