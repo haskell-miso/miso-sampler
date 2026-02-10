@@ -19,6 +19,8 @@ jobs:
 
       - name: Install GHCup
         uses: haskell/ghcup-setup@v1
+        with:
+          cabal: latest
 
       - name: Install WASI backend via GHCup
         run: |
