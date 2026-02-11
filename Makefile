@@ -1,5 +1,9 @@
 .PHONY= update build optim
 
+CABAL_ARGS += --allow-newer=base,template-haskell --with-compiler=wasm32-wasi-ghc --with-hc-pkg=wasm32-wasi-ghc-pkg --with-hsc2hs=wasm32-wasi-hsc2hs --with-haddock=wasm32-wasi-haddock
+RELEASE_CHANNEL := https://gitlab.haskell.org/haskell-wasm/ghc-wasm-meta/-/raw/master/ghcup-wasm-0.0.9.yaml
+WASM_BOOTSTRAP := https://gitlab.haskell.org/haskell-wasm/ghc-wasm-meta/-/raw/master/bootstrap.sh
+
 all: update build optim
 
 js: update-js build-js
@@ -22,19 +26,17 @@ build:
 	cp -v $(my_wasm) public/
 
 ghcup-update:
-	cabal --allow-newer=base,template-haskell --with-compiler=wasm32-wasi-ghc-9.14 --with-hc-pkg=wasm32-wasi-ghc-pkg-9.14 --with-hsc2hs=wasm32-wasi-hsc2hs-9.14 --with-haddock=wasm32-wasi-haddock-9.14 update
+	cabal update $(CABAL_ARGS)
 
-ghcup-build:
-	cabal clean
-	cabal update
-	cabal --allow-newer=base,template-haskell --with-compiler=wasm32-wasi-ghc-9.14 --with-hc-pkg=wasm32-wasi-ghc-pkg-9.14 --with-hsc2hs=wasm32-wasi-hsc2hs-9.14 --with-haddock=wasm32-wasi-haddock-9.14 configure
-	cabal build --verbose=3
+ghcup-build: | install-wasm-via-ghcup ghcup-update
+	. ~/.ghc-wasm/env && \
+		cabal build $(CABAL_ARGS)
 
 install-wasm-via-ghcup:
-	curl https://gitlab.haskell.org/haskell-wasm/ghc-wasm-meta/-/raw/master/bootstrap.sh | SKIP_GHC=1 sh
-	source ~/.ghc-wasm/env
-	ghcup config add-release-channel https://gitlab.haskell.org/haskell-wasm/ghc-wasm-meta/-/raw/master/ghcup-wasm-0.0.9.yaml
-	ghcup install ghc wasm32-wasi-9.14 -- $CONFIGURE_ARGS
+	curl $(WASM_BOOTSTRAP) | SKIP_GHC=1 sh
+	. ~/.ghc-wasm/env && \
+		ghcup config add-release-channel $(RELEASE_CHANNEL) && \
+		ghcup install ghc --set wasm32-wasi-9.15 -- $$CONFIGURE_ARGS
 
 optim:
 	wasm-opt -all -O2 public/app.wasm -o public/app.wasm
