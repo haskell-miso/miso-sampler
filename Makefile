@@ -18,7 +18,7 @@ watch:
 	ghciwatch --after-startup-ghci :main --after-reload-ghci :main --watch . --debounce 50ms --command 'wasm32-wasi-cabal repl app -finteractive --repl-options="-fghci-browser -fghci-browser-port=8080"'
 
 build:
-	wasm32-wasi-cabal build 
+	wasm32-wasi-cabal build
 	rm -rf public
 	cp -r static public
 	$(eval my_wasm=$(shell wasm32-wasi-cabal list-bin app | tail -n 1))
@@ -44,9 +44,6 @@ optim:
 
 serve:
 	http-server public
-
-ghcup-serve:
-	cd public; php -S localhost:1234
 
 clean:
 	rm -rf dist-newstyle public
