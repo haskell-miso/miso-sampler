@@ -39,4 +39,4 @@ build-js:
 	cp -v ./dist-newstyle/build/javascript-ghcjs/ghc-9.12.2/*/x/app/build/app/app.jsexe/all.js .
 	rm -rf public
 	cp -rv static public
-	bunx swc ./all.js -o public/index.js
+	bunx --bun swc ./all.js -o public/index.js
