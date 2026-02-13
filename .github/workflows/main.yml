@@ -40,7 +40,7 @@ jobs:
         with:
           cabal: latest
 
-      - name: Build using GHC
+      - name: Build using GHCup WASM
         run: |
           make ghcup-build
 
