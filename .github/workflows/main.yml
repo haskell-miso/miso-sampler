@@ -34,7 +34,9 @@ jobs:
         run: nix develop .#wasm --command bash -c "make"
 
       - name: Clean and GC
-        run: nix develop .#wasm --command bash -c "make" && nix-collect-garbage -d
+        run: |
+          nix develop .#wasm --command bash -c "make" && nix-collect-garbage -d
+          make clean
 
       - name: Build JS using Nix
         run: nix develop .#ghcjs --command bash -c "make js"
