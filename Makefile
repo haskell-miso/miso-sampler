@@ -47,7 +47,7 @@ serve:
 
 clean:
 	rm -rf dist-newstyle public
-	cabal clean
+	. ~/.ghc-wasm/env && cabal clean
 
 update-js:
 	cabal update --with-ghc=javascript-unknown-ghcjs-ghc --with-hc-pkg=javascript-unknown-ghcjs-ghc-pkg
