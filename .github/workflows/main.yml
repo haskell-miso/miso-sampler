@@ -17,28 +17,14 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - uses: cachix/install-nix-action@v31
+      - name: Install GHCup
+        uses: haskell/ghcup-setup@v1
         with:
-          github_access_token: ${{ secrets.GITHUB_TOKEN }}
+          cabal: latest
 
-      - name: Install cachix
-        uses: cachix/cachix-action@v16
-        with:
-          name: haskell-miso-cachix
-
-      - name: Build WASM using Nix
-        run: nix develop .#wasm --command bash -c "make"
-
-      - name: Clean and GC
-        run: nix develop .#wasm --command bash -c "make" && nix-collect-garbage -d
-
-      - name: Build JS using Nix
-        run: nix develop .#ghcjs --command bash -c "make js"
-
-      - name: Upload artifact
-        uses: actions/upload-pages-artifact@v3
-        with:
-          path: ./public
+      - name: Build using GHC
+        run: |
+          make ghcup-build
 
   deploy:
     if: github.ref == 'refs/heads/main'
