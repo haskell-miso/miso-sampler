@@ -15,6 +15,10 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      - uses: ners/simply-nix@main
+        with:
+          reclaim_space: true
+
       - uses: actions/checkout@v4
 
       - uses: cachix/install-nix-action@v31
@@ -30,10 +34,21 @@ jobs:
         run: nix develop .#wasm --command bash -c "make"
 
       - name: Clean and GC
-        run: nix develop .#wasm --command bash -c "make" && nix-collect-garbage -d
+        run: |
+          nix develop .#wasm --command bash -c "make" && nix-collect-garbage -d
+          make clean
 
       - name: Build JS using Nix
         run: nix develop .#ghcjs --command bash -c "make js"
+
+      - name: Install GHCup
+        uses: haskell/ghcup-setup@v1
+        with:
+          cabal: latest
+
+      - name: Build using GHCup WASM
+        run: |
+          make ghcup-build
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
