@@ -9,8 +9,13 @@ develop against vanilla GHC and to compile to Web Assembly or JavaScript.
 View [source](https://github.com/haskell-miso/miso-sampler/blob/main/app/Main.hs).
 
 ### Install Nix (w/ flakes enabled)
-```js
-curl -fsSL https://install.determinate.systems/nix | sh -s -- install 
+
+```bash
+# Install nix 
+curl -L https://nixos.org/nix/install | sh
+
+# Enable flakes
+echo 'experimental-features = nix-command flakes' >> ~/.config/nix/config.nix
 ```
 
 > [!TIP] 
@@ -23,6 +28,7 @@ For interactive development in the browser via the WASM backend
 ```bash
 $ nix develop .#wasm --command bash -c 'make repl'
 ```
+
 ```
 Preprocessing executable 'app' for app-0.1.0.0...
 GHCi, version 9.12.2.20250924: https://www.haskell.org/ghc/  :? for help
@@ -55,7 +61,11 @@ main :: IO ()
 main = reload defaultEvents app
 ```
 
-Use `live` to persist the application state between reloads.
+### Live reload 🔥
+
+If you use [ghciwatch](https://github.com/MercuryTechnologies/ghciwatch) you can have live reload functionality (where `main` is executed whenever a file is saved to disk).
+
+When combined with the `live` function it is possible to persist the application state between GHCi reloads. This is like `reload`, except your application state will not be cleared.
 
 ```haskell
 main :: IO ()
@@ -63,10 +73,6 @@ main = live defaultEvents app
 ```
 
 See the [Miso.Reload](https://haddocks.haskell-miso.org/miso/Miso-Reload.html) haddocks for more information.
-
-### Hot reload 🔥
-
-If you use [ghciwatch](https://github.com/MercuryTechnologies/ghciwatch) you can have hot reload functionality (where `main` is executed whenever a file is saved to disk).
 
 ```bash
 $ nix develop .#wasm --command bash -c 'make watch'
