@@ -52,8 +52,17 @@ Call `:r` to refresh the page with the latest code. Using `Miso.Run.reload` (as 
 
 ```haskell
 main :: IO ()
-main = reload (startApp defaultEvents app)
+main = reload defaultEvents app
 ```
+
+Use `live` to persist the application state between reloads.
+
+```haskell
+main :: IO ()
+main = live defaultEvents app
+```
+
+See the [Miso.Reload](https://haddocks.haskell-miso.org/miso/Miso-Reload.html) haddocks for more information.
 
 ### Hot reload 🔥
 
