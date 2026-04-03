@@ -15,7 +15,7 @@ View [source](https://github.com/haskell-miso/miso-sampler/blob/main/app/Main.hs
 curl -L https://nixos.org/nix/install | sh
 
 # Enable flakes
-echo 'experimental-features = nix-command flakes' >> ~/.config/nix/config.nix
+echo 'experimental-features = nix-command flakes' >> ~/.config/nix/nix.conf
 ```
 
 > [!TIP] 
