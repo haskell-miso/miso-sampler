@@ -10,7 +10,6 @@ import           Miso.Html.Element as H
 import           Miso.Html.Event as E
 import           Miso.Html.Property as P
 import           Miso.Lens
-import           Miso.String
 import qualified Miso.CSS as CSS
 import           Miso.CSS (StyleSheet)
 -----------------------------------------------------------------------------
