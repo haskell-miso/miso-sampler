@@ -1,4 +1,4 @@
-🍱 miso-sampler
+🍱 sampler
 ====================
 
 This project contains a sample [miso](https://github.com/dmjio/miso) application with scripts to
