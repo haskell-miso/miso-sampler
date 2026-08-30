@@ -46,8 +46,8 @@ updateModel = \case
   SayHelloWorld ->
     io_ (consoleLog "Hello World!")
 -----------------------------------------------------------------------------
-viewModel :: props -> Int -> View Int Action
-viewModel _ x = H.div_
+viewModel :: context -> props -> Int -> View context Int Action
+viewModel _ _ x = H.div_
   [ P.class_ "counter-container" ]
   [ H.h1_
     [ P.class_ "counter-title"
