@@ -40,14 +40,14 @@ jobs:
         with:
           path: ./public
 
-      - name: Install GHCup
-        uses: haskell/ghcup-setup@v1
-        with:
-          cabal: latest
+      # - name: Install GHCup
+      #   uses: haskell/ghcup-setup@v1
+      #   with:
+      #     cabal: latest
 
-      - name: Build WASM using GHCup
-        run: |
-          make ghcup-build
+      # - name: Build WASM using GHCup
+      #   run: |
+      #     make ghcup-build
 
   deploy:
     if: github.ref == 'refs/heads/main'
